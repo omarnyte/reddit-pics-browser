@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PicsPreview from './PicsPreview/PicsPreview';
+import PostsPreview from './PostsPreview/PostsPreview';
 import './App.scss';
 
 const REDDIT_PICS_URL = 'https://www.reddit.com/r/pics/.json?jsonp=';
@@ -13,7 +13,7 @@ function App() {
       const response = await fetch(REDDIT_PICS_URL);
       const { data } = await response.json();
       setIsLoading(false);
-      setData(data);
+      setData(data.children.map(child => child.data));
     };
 
     fetchData();
@@ -24,7 +24,7 @@ function App() {
     <div className="App">
       <h1>Reddit r/pics Browser</h1>
       { isLoading && <span>Loading...</span> }
-      { data && <PicsPreview redditPosts={data.children}/> }
+      { data && <PostsPreview redditPosts={data}/> }
     </div>
   );
 }

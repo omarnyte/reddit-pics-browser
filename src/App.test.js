@@ -4,8 +4,10 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import App from './App';
 
+const REDDIT_PICS_URL = 'reddit.com/r/pics/.json?jsonp=';
+
 const server = setupServer(
-  rest.get('reddit.com/r/pics/.json?jsonp=', (req, res, ctx) => {
+  rest.get(REDDIT_PICS_URL, (req, res, ctx) => {
     return res(ctx.json({ greeting: 'hello there' }))
   })
 )
@@ -29,7 +31,7 @@ test('renders a loading indicator ', () => {
 
 test('renders the filter input thumbnail previews after the data has finished loading', async () => {
   server.use(
-    rest.get('reddit.com/r/pics/.json?jsonp=', (req, res, ctx) => {
+    rest.get(REDDIT_PICS_URL, (req, res, ctx) => {
       return res(ctx.json({
         data: {
           children: [
