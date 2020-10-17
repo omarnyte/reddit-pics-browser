@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import PicsPreview from './PicsPreview/PicsPreview';
+import './App.scss';
+
+const REDDIT_PICS_URL = 'https://www.reddit.com/r/pics/.json?jsonp=';
 
 function App() {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(REDDIT_PICS_URL);
+      const { data } = await response.json();
+      setIsLoading(false);
+      setData(data);
+    };
+
+    fetchData();
+  }, []);
+
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Reddit r/pics Browser</h1>
+      { isLoading && <span>Loading...</span> }
+      { data && <PicsPreview redditPosts={data.children}/> }
     </div>
   );
 }
