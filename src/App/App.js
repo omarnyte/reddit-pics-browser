@@ -51,7 +51,12 @@ function App() {
   return (
     <div className="App">
       <h1>Reddit r/pics Browser</h1>
-      { state.hasError && <h2>Oops! Something went wrong. Please try again later.</h2> }
+      { state.hasError && (
+        <>
+          <h2>Oops! Something went wrong. Please try again later.</h2> 
+          <span>Verify that your ad/tracking blockers aren't blocking requests to reddit.com</span>
+        </>
+      )}
       { state.isLoading && <span>Loading...</span> }
       { state.data && <PostsPreview redditPosts={state.data}/> }
     </div>
