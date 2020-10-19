@@ -1,71 +1,51 @@
 ![CI/CD](https://github.com/omarnyte/reddit-pics-browser/workflows/CI/CD/badge.svg)
 [![codecov](https://codecov.io/gh/omarnyte/reddit-pics-browser/branch/main/graph/badge.svg?token=G8VMLGBNHK)](undefined)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Reddit r/Pics Browser
 
-## Available Scripts
+This single-page React web app allows for navigation of the r/pics subreddit. 
 
-In the project directory, you can run:
+## Local Development
 
-### `npm start`
+### Requirements
+- [Node.js](https://nodejs.org/en/) v12.18.0 
+- [NPM](https://www.npmjs.com/) 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Setup 
+1. Clone the repo 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+2. Install dependencies
 
-### `npm test`
+    `npm install`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Start the app on default port 3000
 
-### `npm build`
+    `npm start`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Testing
+Tests are written using [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro). API calls are mocked using the [Mock Service Worker](https://github.com/mswjs/msw) library.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- To run tests in watch mode: 
+        
+  `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- To run tests in watch mode with coverage: 
 
-### `npm eject`
+  `npm test -- --coverage`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## CI/CD
+This project uses Github Actions for CI/CD. The worfklow will:
+- run all tests
+- send coverage metrics to [Codecov](https://codecov.io/)
+- build the app
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contributing
+1. Fork and clone the repo.
+2. Follow the [setup](#setup) steps outlined above.
+3. Make your changes, ensuring that code coverage remains at 100%.
+4. Open a pull request documenting your changes. Please ensure that that GitHub Actions workflow suceeds. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Deployment
+- Production: https://pics-browser.herokuapp.com/
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This repo's `main` branch automatically deploys to Heroku after the GitHub Actions workflow succeeds. 

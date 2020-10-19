@@ -1,0 +1,3 @@
+ignore:
+  - "src/serviceWorker.js"
+  - "src/index.js"
