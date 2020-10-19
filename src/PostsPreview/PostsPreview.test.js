@@ -4,24 +4,24 @@ import userEvent from '@testing-library/user-event'
 import PostsPreview from './PostsPreview';
 
 const redditPost1 = {
+  author: 'author1',
   id: 'redditPost1',
   thumbnail: 'https://example.com/reddit-post-1',
   title: 'Reddit Post 1',
-  src: 'example.com/post1'
 }
 
 const redditPost2 = {
+  author: 'author2',
   id: 'redditPost2',
   thumbnail: 'https://example.com/reddit-post-2',
   title: 'Reddit Post 2',
-  src: 'example.com/post2'
 }
 
 const randomPost = {
+  author: 'author3',
   id: 'randomPost',
   thumbnail: 'https://example.com/random-post-2',
   title: 'Random Post',
-  src: 'example.com/randomPost'
 }
 
 describe('picture filtering', () => {
@@ -29,10 +29,10 @@ describe('picture filtering', () => {
     const { getByAltText } = render(<PostsPreview redditPosts={[redditPost1, redditPost2]} />);
 
     const firstPost = getByAltText(redditPost1.title);
-    expect(firstPost).toBeInTheDocument();
+    expect(firstPost).toHaveAttribute('src', firstPost.thumbnail);
 
     const secondPost = getByAltText(redditPost2.title);
-    expect(secondPost).toBeInTheDocument();
+    expect(secondPost).toHaveAttribute('src', firstPost.thumbnail);
   });
 
   test('renders the images whose titles match the query', async () => {
@@ -42,7 +42,7 @@ describe('picture filtering', () => {
       target: { value: 'random' },
     })
 
-    expect(getByAltText(randomPost.title)).toBeInTheDocument();
+    expect(getByAltText(randomPost.title)).toHaveAttribute('src', randomPost.thumbnail);
     expect(queryByAltText(redditPost1.title)).toBeNull();
     expect(queryByAltText(redditPost2.title)).toBeNull();
   });
