@@ -1,10 +1,12 @@
+@import '../shared.scss';
+
 h2 {
   font-size: 1.25rem;
   font-family: 'Helvetica Neue';
   font-weight: 300;
-  color: #707070;
+  color: $gray;
 
-  @media (min-width: 992px) {
+  @media (min-width: $large) {
     font-size: 2rem;
   }
 }
@@ -23,6 +25,14 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 1rem;
+
+  @media (min-width: $large) {
+    margin-top: 0;
+    margin-left: 1rem;
+
+    font-size: 1.5rem;
+  }
 }
 
 img {
@@ -31,7 +41,7 @@ img {
 }
 
 button {
-  color: #777;
+  color: $gray;
   background-color: transparent;
   border: 1px solid;
   border-radius: 5px;
@@ -41,7 +51,7 @@ button {
 
   &:hover{
     cursor: pointer;
-    background-color: #777;
+    background-color: $gray;
     color: white;
   }
 }
