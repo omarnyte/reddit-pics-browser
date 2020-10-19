@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
+  color: #707070;
+
+  @media (min-width: 992px) {
+    font-size: 3rem;
+  }
+}
