@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import DetailedPostView from '../DetailedPostView/DetailedPostView';
+import PostsList from '../PostsList/PostsList';
 import './PostsPreview.scss';
 
 const filterPostsByQuery = (posts, query) => {
@@ -25,10 +26,12 @@ function PostsPreview({ redditPosts }) {
   }, [query, redditPosts]);
 
   if (selectedPictureId) {
-    return <DetailedPostView
-      goBack={() => setSelectedPictureId(null)}
-      redditPost={redditPosts.find(post => post.id === selectedPictureId)}
-    />
+    return (
+      <DetailedPostView
+        goBack={() => setSelectedPictureId(null)}
+        redditPost={redditPosts.find(post => post.id === selectedPictureId)}
+      />
+    )
   } else {
     return (
       <>
@@ -38,23 +41,7 @@ function PostsPreview({ redditPosts }) {
         </div>
 
         <div className="preview">
-          {
-            filteredPosts.map((redditPost) => {
-              return (
-                <div
-                  className="picture-preview-card"
-                  id={redditPost.id}
-                  key={redditPost.id}
-                  onClick={(event) => {
-                    setSelectedPictureId(event.currentTarget.id)
-                  }
-                }
-                >
-                  <img alt={redditPost.title} src={redditPost.thumbnail} />
-                  <span className="post-title">{redditPost.title}</span>
-                </div>
-              )
-            })}
+          <PostsList handleClick={(event) => setSelectedPictureId(event.currentTarget.id)} posts={filteredPosts}/>
         </div>
       </>
     );
