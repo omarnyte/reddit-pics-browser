@@ -21,7 +21,14 @@ function App() {
       try {
         const response = await fetch(REDDIT_PICS_URL);
         const { data } = await response.json();
-        const posts = data.children.map(child => child.data);
+        const posts = data.children.map(child => {
+          if (child.data.thumbnail === 'self') {
+            child.data.thumbnail = `${process.env.PUBLIC_URL}/reddit-logo-thumbnail.png`;
+            child.data.url = `${process.env.PUBLIC_URL}/reddit-logo.jpg`;
+          }
+
+          return child.data;
+        });
 
         if (isComponentMounted) {
           dispatch({ type: 'HANDLE_FETCH_SUCCESS', payload: posts });

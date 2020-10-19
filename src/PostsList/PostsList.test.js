@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PostsList from './PostsList';
 
-test('renders an accessible thumbnail for every reddit post when query is empty', () => {
+test('renders an indication when list is empty', () => {
   const handleClickDummy = () => {};
   render(<PostsList handleClick={handleClickDummy} posts={[]} />);
 

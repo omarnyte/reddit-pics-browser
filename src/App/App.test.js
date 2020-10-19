@@ -23,6 +23,13 @@ const server = setupServer(
               thumbnail: 'https://example.com/reddit-post-2',
               title: 'Reddit Post 2',
             }
+          },
+          {
+            data: {
+              id: 'postWithoutThumbnail',
+              thumbnail: 'self',
+              title: 'Post Without Thumbnail',
+            }
           }
         ]
       }
@@ -65,4 +72,11 @@ test('renders the filter input thumbnail previews after the data has finished lo
 
   const pictureFilterInput = await screen.findByLabelText('Filter Images');
   expect(pictureFilterInput).toBeInTheDocument();
+});
+
+test('adds a default thumbnail to posts with missing thumbnails', async () => {
+  render(<App />);
+
+  const postWithoutThumbnail = await screen.findByAltText('Post Without Thumbnail');
+  expect(postWithoutThumbnail).toHaveAttribute('src', '/reddit-logo-thumbnail.png');
 });
