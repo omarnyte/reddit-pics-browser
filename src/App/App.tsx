@@ -1,15 +1,15 @@
+import dataFetchReducer, { initialState } from './dataFetchReducer';
 import React, { useEffect, useReducer } from 'react';
 import PostsPreview from '../PostsPreview/PostsPreview';
-import dataFetchReducer from './dataFetchReducer';
+import { RedditPost } from '../types';
 import { REDDIT_PICS_URL } from '../constants';
 import './App.scss';
 
+type RedditPicsResponse = {
+  data: RedditPost
+}
+
 function App() {
-  const initialState = {
-    hasError: false,
-    isLoading: false,
-    data: null
-  };
   const [state, dispatch] = useReducer(dataFetchReducer, initialState);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function App() {
       try {
         const response = await fetch(REDDIT_PICS_URL);
         const { data } = await response.json();
-        const posts = data.children.map(child => {
+        const posts = data.children.map((child: RedditPicsResponse) => {
           if (child.data.thumbnail === 'self') {
             child.data.thumbnail = `${process.env.PUBLIC_URL}/reddit-logo-thumbnail.png`;
             child.data.url = `${process.env.PUBLIC_URL}/reddit-logo.jpg`;
