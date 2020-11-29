@@ -1,8 +1,13 @@
-import PropTypes from 'prop-types';
+import { RedditPost } from '../types';
 import React from 'react';
 import './DetailedPostView.scss';
 
-function DetailedPostView({ goBack, redditPost }) {
+type Props = { 
+  goBack: () => void;
+  redditPost: RedditPost
+}
+
+function DetailedPostView({ goBack, redditPost }: Props) {
   return (
     <>
       <button onClick={goBack}>Go Back</button>
@@ -19,12 +24,3 @@ function DetailedPostView({ goBack, redditPost }) {
 }
 
 export default DetailedPostView;
-
-DetailedPostView.propTypes = {
-  goBack: PropTypes.func.isRequired,
-  redditPosts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired)
-}

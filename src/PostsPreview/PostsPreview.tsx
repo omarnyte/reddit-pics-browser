@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import DetailedPostView from '../DetailedPostView/DetailedPostView';
 import PostsList from '../PostsList/PostsList';
+import PropTypes from 'prop-types';
+import { RedditPost } from '../types';
 import './PostsPreview.scss';
 
-const filterPostsByQuery = (posts, query) => {
+const filterPostsByQuery = (posts: RedditPost[], query: string) => {
   const lowerCaseQuery = query.toLowerCase();
 
   return posts.filter(post => {
@@ -12,10 +13,14 @@ const filterPostsByQuery = (posts, query) => {
   })
 }
 
-function PostsPreview({ redditPosts }) {
+type Props = {
+  redditPosts: RedditPost[]
+}
+
+function PostsPreview({ redditPosts }: Props) {
   const [filteredPosts, setFilteredPosts] = useState(redditPosts);
   const [query, setQuery] = useState("");
-  const [selectedPictureId, setSelectedPictureId] = useState(null);
+  const [selectedPictureId, setSelectedPictureId] = useState<string | null> (null);
 
   useEffect(() => {
     if (query === "") {
@@ -25,11 +30,13 @@ function PostsPreview({ redditPosts }) {
     }
   }, [query, redditPosts]);
 
-  if (selectedPictureId) {
+  const selectedPost: RedditPost | undefined = redditPosts.find(post => post.id === selectedPictureId) 
+
+  if (selectedPost) {
     return (
       <DetailedPostView
         goBack={() => setSelectedPictureId(null)}
-        redditPost={redditPosts.find(post => post.id === selectedPictureId)}
+        redditPost={selectedPost}
       />
     )
   } else {
@@ -41,7 +48,10 @@ function PostsPreview({ redditPosts }) {
         </div>
 
         <div className="preview">
-          <PostsList handleClick={(event) => setSelectedPictureId(event.currentTarget.id)} posts={filteredPosts}/>
+          <PostsList
+            handleClick={(event) => setSelectedPictureId(event.currentTarget.id)}
+            posts={filteredPosts}
+          />
         </div>
       </>
     );
